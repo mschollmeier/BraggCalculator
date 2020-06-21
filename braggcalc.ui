@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>braggCalc</class>
+ <widget class="QWidget" name="braggCalc">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>339</width>
+    <height>377</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>braggCalc</string>
+  </property>
+  <layout class="QGridLayout" name="mainLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QGroupBox" name="xrayGroupBox">
+     <property name="title">
+      <string>X-Ray Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="energyLabel">
+        <property name="text">
+         <string>Energy:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="braggSpinBox" name="energyDoubleSpinBox">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>1000000000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="energyUnitComboBox">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lambdaLabel">
+        <property name="text">
+         <string>Wavelength:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="lambdaDoubleSpinBox">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QComboBox" name="lambdaUnitComboBox"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QGroupBox" name="crystalGroupBox">
+     <property name="title">
+      <string>Crystal Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="twoDDoubleSpinBox">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="reflOrderSpinBox">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="twoDLabel">
+        <property name="text">
+         <string>2d spacing:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="reflOrderLabel">
+        <property name="text">
+         <string>Reflection order:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="twoDUnitComboBox"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QGroupBox" name="braggGroupBox">
+     <property name="title">
+      <string>Bragg Angle</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="braggLabel">
+        <property name="text">
+         <string>Angle to Surface:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QDoubleSpinBox" name="braggDoubleSpinBox">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>0.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>90.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="braggUnitComboBox"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="normalLabel">
+        <property name="text">
+         <string>Angle to Normal:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QDoubleSpinBox" name="normalDoubleSpinBox">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>90.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QComboBox" name="normalUnitComboBox"/>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Keep constant when changing angle:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="xrayCheckBox">
+        <property name="text">
+         <string>X-ray parameters</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" colspan="2">
+       <widget class="QCheckBox" name="crystalCheckBox">
+        <property name="text">
+         <string>Crystal parameters</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>braggSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>braggspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>energyDoubleSpinBox</tabstop>
+  <tabstop>lambdaDoubleSpinBox</tabstop>
+  <tabstop>energyUnitComboBox</tabstop>
+  <tabstop>lambdaUnitComboBox</tabstop>
+  <tabstop>twoDDoubleSpinBox</tabstop>
+  <tabstop>reflOrderSpinBox</tabstop>
+  <tabstop>braggDoubleSpinBox</tabstop>
+  <tabstop>normalDoubleSpinBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
