@@ -1,3 +1,6 @@
+include(../../XRayStudio/src/qmake-target-platform.pri)
+include(../../XRayStudio/src/qmake-destination-path.pri)
+
 QT       += core gui printsupport help
 QTPLUGIN += cocoaprintersupport
 
@@ -5,7 +8,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 requires(qtConfig(undoview))
 
-CONFIG += c++14
+
+INCLUDEPATH += ../../XRayStudio/src/
+
+BINARYPATH = $$PWD/../../binaries/
+DESTDIR = $$BINARYPATH/$$DESTINATION_PATH
+
+BUILDPATH = $$PWD/../../build/BraggCalculator/
+OBJECTS_DIR = $$BUILDPATH/$$DESTINATION_PATH/.obj
+MOC_DIR = $$BUILDPATH/$$DESTINATION_PATH/.moc
+RCC_DIR = $$BUILDPATH/$$DESTINATION_PATH/.qrc
+UI_DIR = $$BUILDPATH/$$DESTINATION_PATH/.ui
+
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,6 +31,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+CONFIG += c++17
+CONFIG(release, debug|release) {
+    DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_DEBUG
+    msvc{
+        QMAKE_CFLAGS = /O2
+        QMAKE_CXXFLAGS = /O2
+        }
+    else{
+        QMAKE_CFLAGS -= -O2
+        QMAKE_CFLAGS -= -O1
+        QMAKE_CXXFLAGS -= -O2
+        QMAKE_CXXFLAGS -= -O1
+        QMAKE_CFLAGS = -m64 -O3
+        QMAKE_LFLAGS = -m64 -O3
+        QMAKE_CXXFLAGS = -m64 -O3
+    }
+}
 
 SOURCES += \
     aboutwindow.cpp \

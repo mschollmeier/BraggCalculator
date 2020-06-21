@@ -7,8 +7,8 @@
 #include <QDir>
 #include <QStandardPaths>
 
-#include "../../../../XRayStudio/XRayStudio/src/xrsGlobals/xrsCommon/unicodecharacters.h"
-#include "../../../../XRayStudio/XRayStudio/src/xrsGlobals/xrsCommon/constants.h"
+#include "xrsGlobals/xrsCommon/unicodecharacters.h"
+#include "xrsGlobals/xrsCommon/constants.h"
 
 struct braggParams {
 
