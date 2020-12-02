@@ -1,5 +1,31 @@
-include(../../XRayStudio/src/qmake-target-platform.pri)
-include(../../XRayStudio/src/qmake-destination-path.pri)
+##### GPL ####################################################################
+# This file defines the compilation process for qmake                        #
+#                                                                            #
+# Copyright (c) 2020  Marius S. Schollmeier                                  #
+#                                                                            #
+# This program is free software: you can redistribute it and/or modify       #
+# it under the terms of the GNU General Public License as published by       #
+# the Free Software Foundation, either version 3 of the License, or          #
+# (at your option) any later version.                                        #
+#                                                                            #
+# This program is distributed in the hope that it will be useful,            #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
+# GNU General Public License for more details.                               #
+#                                                                            #
+# You should have received a copy of the GNU General Public License          #
+# along with this program.  If not, see <https://www.gnu.org/licenses/       #
+#                                                                            #
+##############################################################################
+# Author:  Marius Schollmeier,                                               #
+# Contact: mschollmeier01@gmail.com                                          #
+# Date:    Dec. 02, 2020                                                     #
+# Version: 1.0                                                               #
+##############################################################################
+
+
+include(src/qmake-target-platform.pri)
+include(src/qmake-destination-path.pri)
 
 QT       += core gui printsupport help
 QTPLUGIN += cocoaprintersupport
@@ -8,8 +34,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 requires(qtConfig(undoview))
 
-
-INCLUDEPATH += ../../XRayStudio/src/
 
 BINARYPATH = $$PWD/../../binaries/
 DESTDIR = $$BINARYPATH/$$DESTINATION_PATH
@@ -51,40 +75,42 @@ CONFIG(release, debug|release) {
 }
 
 SOURCES += \
-    aboutwindow.cpp \
-    braggserialize.cpp \
-    braggspinbox.cpp \
-    createbraggtextdoc.cpp \
-    main.cpp \
-    braggcalc.cpp \
-    undocommands.cpp
+    src/aboutwindow.cpp \
+    src/braggserialize.cpp \
+    src/braggspinbox.cpp \
+    src/createbraggtextdoc.cpp \
+    src/main.cpp \
+    src/braggcalc.cpp \
+    src/undocommands.cpp
 
 HEADERS += \
-    aboutwindow.h \
-    braggcalc.h \
-    braggparams.h \
-    braggserialize.h \
-    braggspinbox.h \
-    createbraggtextdoc.h \
-    myapp.h \
-    undocommands.h
+    src/aboutwindow.h \
+    src/braggcalc.h \
+    src/braggparams.h \
+    src/braggserialize.h \
+    src/braggspinbox.h \
+    src/createbraggtextdoc.h \
+    src/constants.h \
+    src/myapp.h \
+    src/undocommands.h \
+    src/unicodecharacters.h
 
 FORMS += \
-    aboutwindow.ui \
-    braggcalc.ui
+    src/aboutwindow.ui \
+    src/braggcalc.ui
 
 TARGET = "Bragg Angle Calculator"
 
-# major, minor, patch level, and build number
-VERSION = 1.0.0.0
+# major, minor
+VERSION = 1.0
 DEFINES += VERSION_STRING=\\\"$${VERSION}\\\"
 
 macx {
-    ICON = BraggCalculator.icns
+    ICON = res/BraggCalculator.icns
 }
 
 win32{
-    RC_ICONS = BraggCalcIcon.ico
+    RC_ICONS = res/BraggCalcIcon.ico
 }
 
 
@@ -94,4 +120,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    braggResources.qrc
+    res/braggResources.qrc

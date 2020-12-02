@@ -1,3 +1,30 @@
+/***** GPL *******************************************************************
+**                                                                          **
+** This file is part of BraggCalculator, a GUI-based program to quickly     **
+** evaluate the Bragg equation for x-ray reflection.                        **
+**                                                                          **
+** Copyright (c) 2020  Marius S. Schollmeier                                **
+**                                                                          **
+** This program is free software: you can redistribute it and/or modify     **
+** it under the terms of the GNU General Public License as published by     **
+** the Free Software Foundation, either version 3 of the License, or        **
+** (at your option) any later version.                                      **
+**                                                                          **
+** This program is distributed in the hope that it will be useful,          **
+** but WITHOUT ANY WARRANTY; without even the implied warranty of           **
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            **
+** GNU General Public License for more details.                             **
+**                                                                          **
+** You should have received a copy of the GNU General Public License        **
+** along with this program.  If not, see <https://www.gnu.org/licenses/     **
+**                                                                          **
+******************************************************************************
+** Author:  Marius Schollmeier,                                             **
+** Contact: mschollmeier01@gmail.com                                        **
+** Date:    Dec. 02, 2020                                                   **
+** Version: 1.0                                                             **
+*****************************************************************************/
+
 #include "braggcalc.h"
 #include "ui_braggcalc.h"
 
@@ -21,9 +48,9 @@
 #include "createbraggtextdoc.h"
 #include "undocommands.h"
 
-const double pi_2 = static_cast<double>(xrsConstants::pi_2);
-using xrsConstants::rad2deg;
-using xrsConstants::deg2rad;
+const double pi_2 = static_cast<double>(Constants::pi_2);
+using Constants::rad2deg;
+using Constants::deg2rad;
 
 braggCalc::braggCalc(QWidget *parent)
     : QWidget(parent)
@@ -83,8 +110,8 @@ void braggCalc::energyChanged(double energy)
     ui->braggDoubleSpinBox->blockSignals(true);
     ui->normalDoubleSpinBox->blockSignals(true);
 
-    if (_p.energy > xrsConstants::epsilonZero) {
-        _p.lambda = xrsConstants::keV2Angstrom / (_p.energyMultiplier[_p.energyCurIndex] * _p.energy) / _p.lambdaMultiplier[_p.lambdaCurIndex];
+    if (_p.energy > Constants::epsilonZero) {
+        _p.lambda = Constants::keV2Angstrom / (_p.energyMultiplier[_p.energyCurIndex] * _p.energy) / _p.lambdaMultiplier[_p.lambdaCurIndex];
         ui->lambdaDoubleSpinBox->setValue(_p.lambda);
 
         this->reCalcBragg();
@@ -124,8 +151,8 @@ void braggCalc::lambdaChanged(double lambda)
     ui->braggDoubleSpinBox->blockSignals(true);
     ui->normalDoubleSpinBox->blockSignals(true);
 
-    if (_p.lambda > xrsConstants::epsilonZero) {
-        _p.energy = xrsConstants::keV2Angstrom / (_p.lambdaMultiplier[_p.lambdaCurIndex] * lambda) / _p.energyMultiplier[_p.energyCurIndex];
+    if (_p.lambda > Constants::epsilonZero) {
+        _p.energy = Constants::keV2Angstrom / (_p.lambdaMultiplier[_p.lambdaCurIndex] * lambda) / _p.energyMultiplier[_p.energyCurIndex];
         ui->energyDoubleSpinBox->setValue(_p.energy);
         this->reCalcBragg();
     }
@@ -277,7 +304,7 @@ void braggCalc::braggUnitChanged(int index)
 
     if (newUnit.compare("deg") == 0) {
         _p.bragg *= rad2deg;
-        ui->braggDoubleSpinBox->setSuffix(xrsUnicodeCharacters::degree);
+        ui->braggDoubleSpinBox->setSuffix(UnicodeCharacters::degree);
         ui->braggDoubleSpinBox->setRange(0.0, 90.0);
         ui->braggDoubleSpinBox->setValue(_p.bragg);
         _p.braggInDegree = true;
@@ -305,7 +332,7 @@ void braggCalc::normalUnitChanged(int index)
         _p.normal *= rad2deg;
         ui->normalDoubleSpinBox->setRange(0.0, 90.0);
         ui->normalDoubleSpinBox->setValue(_p.normal);
-        ui->normalDoubleSpinBox->setSuffix(xrsUnicodeCharacters::degree);
+        ui->normalDoubleSpinBox->setSuffix(UnicodeCharacters::degree);
         _p.normalInDegree = true;
     }
     else {
@@ -361,7 +388,7 @@ void braggCalc::reCalcBragg()
 
     double theta {-1.0};
 
-    if (_p.twoD > xrsConstants::epsilonZero)
+    if (_p.twoD > Constants::epsilonZero)
         theta = rad2deg * asin(_p.reflOrder * (_p.lambda * _p.lambdaMultiplier[_p.lambdaCurIndex]) / (_p.twoD * _p.twoDMultiplier[_p.twoDCurIndex])); //in degrees
 
     if (0.0 <= theta && theta <= 90.0 && _p.lambda > 0.0)  {
@@ -396,7 +423,7 @@ void braggCalc::reCalcEnergy()
     auto sinCalc = _p.braggInDegree ? sin(deg2rad * _p.bragg) : sin(_p.bragg);
     _p.lambda = _p.twoDMultiplier[_p.twoDCurIndex] * _p.twoD * sinCalc / _p.reflOrder / _p.lambdaMultiplier[_p.lambdaCurIndex];
 
-    _p.energy = xrsConstants::keV2Angstrom / _p.lambda / _p.lambdaMultiplier[_p.lambdaCurIndex] /_p.energyMultiplier[_p.energyCurIndex];
+    _p.energy = Constants::keV2Angstrom / _p.lambda / _p.lambdaMultiplier[_p.lambdaCurIndex] /_p.energyMultiplier[_p.energyCurIndex];
 
     ui->lambdaDoubleSpinBox->blockSignals(true);
     ui->energyDoubleSpinBox->blockSignals(true);
@@ -591,12 +618,12 @@ void braggCalc::resetInputWidgets()
     ui->braggDoubleSpinBox->setRange(0.0, 90.0);
     ui->braggDoubleSpinBox->setValue(0.0);
     ui->braggDoubleSpinBox->setSpecialValueText("invalid");
-    ui->braggDoubleSpinBox->setSuffix(xrsUnicodeCharacters::degree);
+    ui->braggDoubleSpinBox->setSuffix(UnicodeCharacters::degree);
 
     ui->normalDoubleSpinBox->setRange(0.0, 90.0);
     ui->normalDoubleSpinBox->setValue(0.0);
     ui->normalDoubleSpinBox->setSpecialValueText("invalid");
-    ui->normalDoubleSpinBox->setSuffix(xrsUnicodeCharacters::degree);
+    ui->normalDoubleSpinBox->setSuffix(UnicodeCharacters::degree);
 
     ui->crystalCheckBox->setCheckState(Qt::Checked);
 
@@ -612,7 +639,7 @@ void braggCalc::resetInputWidgets()
     // populate wavelength unit comboBox
     ui->lambdaUnitComboBox->addItems(_p.lambdaUnitList);
     for (auto pref : _p.lambdaUnitList) {
-        if (pref.compare(xrsUnicodeCharacters::angstrom) == 0)
+        if (pref.compare(UnicodeCharacters::angstrom) == 0)
             break;
         _p.lambdaCurIndex++;
     }
@@ -621,7 +648,7 @@ void braggCalc::resetInputWidgets()
     // populate twoD unit comboBox
     ui->twoDUnitComboBox->addItems(_p.twoDUnitList);
     for (auto pref : _p.twoDUnitList) {
-        if (pref.compare(xrsUnicodeCharacters::angstrom) == 0)
+        if (pref.compare(UnicodeCharacters::angstrom) == 0)
             break;
         _p.twoDCurIndex++;
     }
@@ -789,7 +816,7 @@ void braggCalc::open()
     ui->reflOrderSpinBox->setValue(_p.reflOrder);
 
     double maxRange = _p.braggInDegree ? 90.0 : pi_2;
-    QString suffix = _p.braggInDegree ? xrsUnicodeCharacters::degree : "";
+    QString suffix = _p.braggInDegree ? UnicodeCharacters::degree : "";
     ui->braggDoubleSpinBox->setRange(0.0, maxRange);
     ui->braggDoubleSpinBox->setValue(_p.bragg);
     ui->braggDoubleSpinBox->setSuffix(suffix);
@@ -797,7 +824,7 @@ void braggCalc::open()
     ui->braggUnitComboBox->setCurrentIndex(_p.braggCurIndex);
 
     maxRange = _p.normalInDegree ? 90.0 : pi_2;
-    suffix = _p.normalInDegree ? xrsUnicodeCharacters::degree : "";
+    suffix = _p.normalInDegree ? UnicodeCharacters::degree : "";
     ui->normalDoubleSpinBox->setRange(0.0, maxRange);
     ui->normalDoubleSpinBox->setValue(_p.normal);
     ui->normalDoubleSpinBox->setSuffix(suffix);
