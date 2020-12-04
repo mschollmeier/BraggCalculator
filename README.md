@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/github/license/mschollmeier/BraggCalculator?style=plastic)](https://github.com/mschollmeier/BraggCalculator/LICENSE.txt)
 
 # What is BraggCalculator?
-BraggCalculator, is a simple, GUI-based tool to quickly evaluate the [Bragg equation](https://en.wikipedia.org/wiki/Bragg's_law) for x-ray reflection:<br><br>
+BraggCalculator is a simple, GUI-based tool to quickly evaluate the [Bragg equation](https://en.wikipedia.org/wiki/Bragg's_law) for x-ray reflection:<br><br>
 *m*&lambda; = 2*d* sin &theta;<br>
 
 where *m* is the order of reflection, &lambda; the x-ray wavelength, *d* the lattice spacing of the crystal, and &theta; the angle of incidence with respect to the surface.
@@ -17,7 +17,7 @@ BraggCalculate will be part of a larger suite to design x-ray optical instrument
 * Undo/Redo (mainly for me as a learning experience)
 
 # Build instructions
-BraggCalculator requires Qt5, which can be obtained from [https://www.qt.io](https://www.qt.io/download-qt-installer)
+BraggCalculator requires Qt5, which can be obtained from [https://www.qt.io](https://www.qt.io/download-qt-installer).
 
 Once Qt5 is installed, run the following:
 ```
