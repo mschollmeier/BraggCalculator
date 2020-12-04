@@ -35,10 +35,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 requires(qtConfig(undoview))
 
 
-BINARYPATH = $$PWD/../../binaries/
+BINARYPATH = $$PWD/binaries/
 DESTDIR = $$BINARYPATH/$$DESTINATION_PATH
 
-BUILDPATH = $$PWD/../../build/BraggCalculator/
+BUILDPATH = $$PWD/build/BraggCalculator/
 OBJECTS_DIR = $$BUILDPATH/$$DESTINATION_PATH/.obj
 MOC_DIR = $$BUILDPATH/$$DESTINATION_PATH/.moc
 RCC_DIR = $$BUILDPATH/$$DESTINATION_PATH/.qrc
