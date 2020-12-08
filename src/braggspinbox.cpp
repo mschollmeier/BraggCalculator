@@ -27,6 +27,7 @@
 
 #include "braggspinbox.h"
 
+#include <QActionGroup>
 #include <QClipboard>
 #include <QGuiApplication>
 #include <QLineEdit>

@@ -34,6 +34,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMenuBar>
+#include <QMetaType>
+#include <QPageSize>
 #include <QPrintDialog>
 #include <QtPrintSupport>
 #include <QSpinBox>
@@ -60,10 +62,10 @@ braggCalc::braggCalc(QWidget *parent)
 
     _undoStack = new QUndoStack(this);
 
-    _printer.setPaperSize(QPrinter::Letter);
-    _printer.setOrientation(QPrinter::Portrait);
+    _printer.setPageSize(QPageSize(QPageSize::Letter));
+    _printer.setPageOrientation(QPageLayout::Portrait);
     _printer.setResolution(QPrinter::HighResolution);
-    _printer.setPageMargins(1, 1, 1, 1, QPrinter::Inch);
+    _printer.setPageMargins(QMarginsF(1, 1, 1, 1), QPageLayout::Inch);
 
     this->createMenu();
 
@@ -72,7 +74,7 @@ braggCalc::braggCalc(QWidget *parent)
 
     QCoreApplication::setApplicationName( QString("Bragg Angle Calculator") );
 
-    qRegisterMetaTypeStreamOperators<braggParams>("braggParams");
+    qRegisterMetaType<braggParams>("braggParams");
 
     this->setWindowTitle( QCoreApplication::applicationName() );
     this->show();
@@ -724,19 +726,20 @@ void braggCalc::exportFile()
 
     auto fileType = fileName.split(".", Qt::KeepEmptyParts, Qt::CaseInsensitive).last();
 
-    if (fileType.contains("pdf", Qt::CaseInsensitive)) {
+    if (fileType.contains("pdf", Qt::CaseInsensitive))
+    {
 
-        _printer.setOutputFormat(QPrinter::PdfFormat);
         _printer.setOutputFileName(fileName);
+        _printer.setOutputFormat(QPrinter::PdfFormat);
 
         QTextDocument doc;
         doc.documentLayout()->setPaintDevice(&_printer);
-        doc.setPageSize(_printer.pageRect().size());
+        doc.setDefaultFont(this->font());
+        doc.setPageSize(_printer.pageLayout().fullRectPixels(_printer.resolution()).size());
 
         bragg::createBraggTextDoc(doc, _p);
-
+//        qDebug() << doc.toPlainText();
         doc.print(&_printer);
-
     }
 
     else if (fileType.contains("txt", Qt::CaseInsensitive))
@@ -916,7 +919,7 @@ void braggCalc::print()
     QTextDocument doc;
 
     doc.documentLayout()->setPaintDevice(&_printer);
-    doc.setPageSize(_printer.pageRect().size());
+    doc.setPageSize(_printer.pageLayout().fullRectPixels(_printer.resolution()).size());
 
     bragg::createBraggTextDoc(doc, _p);
 
