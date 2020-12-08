@@ -17,9 +17,9 @@ BraggCalculate will be part of a larger suite to design x-ray optical instrument
 * Undo/Redo (mainly for me as a learning experience)
 
 # Build instructions
-BraggCalculator requires Qt5, which can be obtained from [https://www.qt.io](https://www.qt.io/download-qt-installer).
+BraggCalculator requires Qt5 or Qt6, which can be obtained from [https://www.qt.io](https://www.qt.io/download-qt-installer).
 
-Once Qt5 is installed, run the following:
+Once Qt is installed, run the following:
 ```
 qmake
 (n)make
