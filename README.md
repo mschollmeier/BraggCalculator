@@ -6,7 +6,7 @@ BraggCalculator is a simple, GUI-based tool to quickly evaluate the [Bragg equat
 
 where *m* is the order of reflection, &lambda; the x-ray wavelength, *d* the lattice spacing of the crystal, and &theta; the angle of incidence with respect to the surface.
 
-BraggCalculate will be part of a larger suite to design x-ray optical instruments that is currently under development.
+BraggCalculator will be part of a larger suite to design x-ray optical instruments that is currently under development.
 
 # Overview
 * evaluates the Bragg equation for any given x-ray energy or wavelength, lattice spacing, and reflection order
