@@ -107,6 +107,7 @@ DEFINES += VERSION_STRING=\\\"$${VERSION}\\\"
 
 macx {
     ICON = res/BraggCalculator.icns
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 13
 }
 
 win32{
